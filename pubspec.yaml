@@ -1,0 +1,52 @@
+name: drive_resq
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+#backend
+  supabase: ^2.10.2
+  supabase_flutter: ^2.12.0
+
+#google_maps
+  google_maps_flutter: ^2.14.0
+  flutter_polyline_points: ^3.1.0
+  location: ^8.0.1
+  geolocator: ^14.0.2
+
+#permission
+  permission_handler: ^12.0.1
+
+#fonts
+  google_fonts: ^6.3.3
+
+#state_management
+  get: ^4.7.3
+
+#image_picker
+  image_picker: ^1.2.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - Assets/
+
