@@ -1,4 +1,5 @@
 import 'package:drive_resq/controllers/auth_cont..dart';
+import 'package:drive_resq/core/styles/font.dart';
 import 'package:drive_resq/core/utility/validators.dart';
 import 'package:drive_resq/widgets/d_text_field.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class DriverLoginView extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: width * 0.08,
-            vertical: height * 0.05,
+            vertical: height * 0.15,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,12 +70,24 @@ class DriverLoginView extends StatelessWidget {
                         validator: Validators.email,
                       ),
                       const SizedBox(height: 16),
-                      DTextField(
-                        controller: passwordCtrl,
-                        label: 'Password',
-                        icon: Icons.lock_outline,
-                        obscureText: true,
-                        validator: Validators.password,
+                      Obx(
+                        () => DTextField(
+                          controller: passwordCtrl,
+                          label: "Password",
+                          icon: Icons.lock_outline,
+                          obscureText: controller.isPasswordHidden.value,
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              controller.isPasswordHidden.value
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors.grey,
+                            ),
+                            onPressed: () => controller
+                                .togglePasswordVisibility(), // ✅ CALL method
+                          ),
+                          validator: Validators.password,
+                        ),
                       ),
                     ],
                   ),

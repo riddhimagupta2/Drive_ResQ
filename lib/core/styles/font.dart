@@ -1,3 +1,4 @@
+import 'package:drive_resq/core/styles/style.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 

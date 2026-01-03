@@ -6,7 +6,13 @@ class AuthController extends GetxController {
 
   RxBool isLoading = false.obs;
 
-  // 📝 SIGNUP
+  var isPasswordHidden = true.obs;
+
+  void togglePasswordVisibility() {
+    isPasswordHidden.value = !isPasswordHidden.value;
+  }
+
+
   Future<void> signup({
     required String name,
     required String email,
@@ -38,7 +44,7 @@ class AuthController extends GetxController {
     }
   }
 
-  // 🔑 LOGIN
+
   Future<void> login({
     required String email,
     required String password,
@@ -69,7 +75,7 @@ class AuthController extends GetxController {
     }
   }
 
-  // 🔁 AUTO LOGIN CHECK
+
   Future<void> checkLoginStatus() async {
     final role = await _authService.getUserRole();
 
@@ -82,7 +88,7 @@ class AuthController extends GetxController {
     }
   }
 
-  // 🚪 LOGOUT
+
   Future<void> logout() async {
     await _authService.logout();
     Get.offAllNamed('/login');
