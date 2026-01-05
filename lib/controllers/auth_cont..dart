@@ -1,18 +1,18 @@
+import 'package:drive_resq/modules/splash/nav_bar/nav_bar.dart';
 import 'package:get/get.dart';
 import '../core/service/auth_service.dart';
 
 class AuthController extends GetxController {
   final AuthService _authService = AuthService();
 
-  RxBool isLoading = false.obs;
-
-  var isPasswordHidden = true.obs;
+  final RxBool isLoading = false.obs;
+  final RxBool isPasswordHidden = true.obs;
 
   void togglePasswordVisibility() {
-    isPasswordHidden.value = !isPasswordHidden.value;
+    isPasswordHidden.toggle();
   }
 
-
+  // ================= SIGNUP =================
   Future<void> signup({
     required String name,
     required String email,
@@ -31,11 +31,14 @@ class AuthController extends GetxController {
         role: role,
       );
 
-      if (role == 'driver') {
-        Get.offAllNamed('/driver-dashboard');
-      } else {
-        Get.offAllNamed('/mechanic-dashboard');
+      await _waitForProfile();
+
+      final fetchedRole = await _authService.getUserRole();
+      if (fetchedRole == null) {
+        throw 'Profile not created. Please login again.';
       }
+
+      _navigateByRole(fetchedRole);
 
     } catch (e) {
       Get.snackbar('Signup Failed', e.toString());
@@ -44,30 +47,33 @@ class AuthController extends GetxController {
     }
   }
 
-
   Future<void> login({
     required String email,
     required String password,
-    String? expectedRole,
+    required String expectedRole,
   }) async {
     try {
       isLoading.value = true;
 
-      final role = await _authService.login(
+      await _authService.login(
         email: email,
         password: password,
       );
 
-      if (expectedRole != null && role != expectedRole) {
+      await _waitForProfile();
+
+      final role = await _authService.getUserRole();
+      if (role == null) {
+        throw 'Profile not found. Please contact support.';
+      }
+
+      if (role != expectedRole) {
         await _authService.logout();
         throw 'You are not registered as $expectedRole';
       }
 
-      if (role == 'driver') {
-        Get.offAllNamed('/driver-dashboard');
-      } else {
-        Get.offAllNamed('/mechanic-dashboard');
-      }
+      _navigateByRole(role);
+
     } catch (e) {
       Get.snackbar('Login Failed', e.toString());
     } finally {
@@ -75,19 +81,38 @@ class AuthController extends GetxController {
     }
   }
 
-
   Future<void> checkLoginStatus() async {
-    final role = await _authService.getUserRole();
+    try {
+      await _waitForProfile();
 
-    if (role == null) {
+      final role = await _authService.getUserRole();
+      if (role == null) {
+        Get.offAllNamed('/login');
+      } else {
+        _navigateByRole(role);
+      }
+    } catch (_) {
       Get.offAllNamed('/login');
-    } else if (role == 'driver') {
-      Get.offAllNamed('/driver-dashboard');
-    } else {
-      Get.offAllNamed('/mechanic-dashboard');
     }
   }
 
+   Future<void> _waitForProfile() async {
+    for (int i = 0; i < 5; i++) {
+      final role = await _authService.getUserRole();
+      if (role != null) return;
+      await Future.delayed(const Duration(milliseconds: 300));
+    }
+  }
+
+  void _navigateByRole(String role) {
+    if (role == 'driver') {
+      Get.offAll(() => BottomNavBar(userType: 'driver'));
+    } else if (role == 'mechanic') {
+      Get.offAll(() => BottomNavBar(userType: 'mechanic'));
+    } else {
+      Get.offAllNamed('/login');
+    }
+  }
 
   Future<void> logout() async {
     await _authService.logout();

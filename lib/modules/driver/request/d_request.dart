@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Dashboard extends StatelessWidget {
-  const Dashboard({super.key});
+class DriverRequest extends StatelessWidget {
+  const DriverRequest({super.key});
 
   @override
   Widget build(BuildContext context) {

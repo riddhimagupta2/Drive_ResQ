@@ -12,7 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SupabaseConfig.init();
   Get.put(RoleController());// Initialize Supabase
-  Get.put(AuthController()); // Initialize AuthController
+  Get.put(AuthController(), permanent: true); // Initialize AuthController
   runApp(const MyApp());
 }
 

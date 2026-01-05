@@ -9,7 +9,7 @@ import 'package:drive_resq/core/styles/style.dart';
 class MechanicLoginView extends StatelessWidget {
   MechanicLoginView({super.key});
 
-  final AuthController controller = Get.put(AuthController());
+  final AuthController controller = Get.find<AuthController>();
   final emailCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -84,7 +84,7 @@ class MechanicLoginView extends StatelessWidget {
                               color: Colors.grey,
                             ),
                             onPressed: () => controller
-                                .togglePasswordVisibility(), // ✅ CALL method
+                                .togglePasswordVisibility(),
                           ),
                           validator: Validators.password,
                         ),
@@ -111,7 +111,10 @@ class MechanicLoginView extends StatelessWidget {
                     onPressed: controller.isLoading.value
                         ? null
                         : () {
-                            if (_formKey.currentState!.validate()) {
+                      final form = _formKey.currentState;
+                      if (form == null) return;
+
+                            if (form.validate()) {
                               controller.login(
                                 email: emailCtrl.text.trim(),
                                 password: passwordCtrl.text.trim(),

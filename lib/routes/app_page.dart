@@ -1,4 +1,9 @@
-import 'package:drive_resq/modules/mechanic/dashboard.dart';
+import 'package:drive_resq/modules/driver/driver_dashboard/driver_dashboard.dart';
+import 'package:drive_resq/modules/driver/driver_profile/d_profile.dart';
+import 'package:drive_resq/modules/driver/request/d_request.dart';
+import 'package:drive_resq/modules/mechanic/history/m_history.dart';
+import 'package:drive_resq/modules/mechanic/mechanic_dashboard/m_dashboard.dart';
+import 'package:drive_resq/modules/mechanic/mechanic_profile/m_profile.dart';
 import 'package:get/get.dart';
 import '../modules/driver/auth/driver_login_view.dart';
 import '../modules/driver/auth/driver_signup_view.dart';
@@ -20,15 +25,18 @@ class AppPages {
     GetPage(name: AppRoutes.driverSignup, page: () => DriverSignupView()),
 
     // Driver Dashboard
-    // GetPage(name: AppRoutes.driverHome, page: () => DriverHome()),
-    // GetPage(name: AppRoutes.newRequest, page: () => const NewRequestScreen()),
+    GetPage(name: AppRoutes.driverHome, page: () => DriverDashboard()),
+    GetPage(name: AppRoutes.newRequest, page: () => DriverRequest()),
+    GetPage(name: AppRoutes.driverprofile, page: () => DriverProfile()),
 
     // Mechanic Auth
     GetPage(name: AppRoutes.mechanicLogin, page: () => MechanicLoginView()),
     GetPage(name: AppRoutes.mechanicSignup, page: () => MechanicSignupView()),
 
     // Mechanic Dashboard
-     GetPage(name: AppRoutes.driverHome, page: () => Dashboard()),
+    GetPage(name: AppRoutes.mechanicHome, page: () => MechanicDashboard()),
+    GetPage(name: AppRoutes.history, page: () => MechanicHistory()),
+    GetPage(name: AppRoutes.mechanicprofile, page: () => MechanicProfile()),
 
     // Request Details
     // GetPage(

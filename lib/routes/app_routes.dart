@@ -6,13 +6,17 @@ class AppRoutes {
   // Driver Routes
   static const String driverLogin = '/driver-login';
   static const String driverSignup = '/driver-signup';
-  static const String driverHome = '/dashboard';
-  static const String newRequest = '/driver/new_request';
+  static const String driverHome = '/driver-dashboard';
+  static const String newRequest = '/driver-new_request';
+  static const String newRecharge = '/driver-new_recharge';
+  static const String driverprofile = '/driver-profile';
 
   // Mechanic Routes
   static const String mechanicLogin = '/mechanic-login';
   static const String mechanicSignup = '/mechanic-signup';
-  static const String mechanicHome = '/mechanic/home';
+  static const String mechanicHome = '/mechanic-dashboard';
+  static const String history = '/history';
+  static const String mechanicprofile = '/mechanic-profile';
 
   // Request Details
   static const String requestDetail = '/request/detail';
