@@ -9,7 +9,7 @@ class DriverDashboard extends StatelessWidget {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.offAll('/driver-new_request'),
+        onPressed: () => Get.toNamed('/driver-new_request'),
         backgroundColor: const Color(0xFF00695C),
         shape: const CircleBorder(),
         child: const Icon(Icons.add, color: Colors.white, size: 30),

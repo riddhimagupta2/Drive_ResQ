@@ -1,17 +1,24 @@
 import 'package:drive_resq/controllers/auth_cont..dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DriverProfile extends StatelessWidget {
-  final  authC = Get.find<AuthController>();
+  final authC = Get.find<AuthController>();
 
-   DriverProfile({super.key});
+  DriverProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: Text(
+          'Profile',
+          style: GoogleFonts.poppins(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         backgroundColor: Colors.white,
         elevation: 1,
         automaticallyImplyLeading: false,
@@ -29,20 +36,20 @@ class DriverProfile extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-
-            const Text(
+            Text(
               'User Name',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: GoogleFonts.poppins(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 8),
 
-
             Text(
               'user.email@example.com',
-              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+              style: GoogleFonts.poppins(fontSize: 16, color: Colors.grey[600]),
             ),
             const SizedBox(height: 32),
-
 
             ListTile(
               leading: const Icon(
@@ -54,22 +61,18 @@ class DriverProfile extends StatelessWidget {
               onTap: () {},
             ),
             const Divider(),
-             ListTile(
+            ListTile(
               leading: Icon(Icons.settings_outlined, color: Colors.black),
               title: Text('Settings'),
               trailing: Icon(Icons.chevron_right),
-              onTap: () {
-
-              },
+              onTap: () {},
             ),
             const Divider(),
-             ListTile(
+            ListTile(
               leading: Icon(Icons.help_outline, color: Colors.black),
               title: Text('Help & Support'),
               trailing: Icon(Icons.chevron_right),
-              onTap: () {
-
-              },
+              onTap: () {},
             ),
             const Divider(),
 
@@ -87,7 +90,7 @@ class DriverProfile extends StatelessWidget {
               onPressed: () {
                 authC.logout();
               },
-              child:  Text('Log Out', style: TextStyle(fontSize: 16)),
+              child: Text('Log Out', style: GoogleFonts.poppins(fontSize: 16)),
             ),
             const SizedBox(height: 20),
           ],

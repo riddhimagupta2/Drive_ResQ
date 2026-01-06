@@ -21,7 +21,6 @@ class RequestModel {
 
   factory RequestModel.fromMap(Map<String, dynamic> map) {
     Map<String, dynamic>? parsedLocation;
-    
     if (map['location'] != null) {
       if (map['location'] is String) {
         try {
@@ -51,7 +50,6 @@ class RequestModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'description': description,
       'vehicle_info': vehicleInfo,
       'status': status,

@@ -1,6 +1,7 @@
 import 'package:drive_resq/widgets/role_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../controllers/role_cont..dart';
 
 class RoleSelectionView extends StatelessWidget {
@@ -14,22 +15,22 @@ class RoleSelectionView extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'DriveResQ',
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                   color: primaryColor,
                   fontSize: 34,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'Roadside help, on demand.',
-                style: TextStyle(color: Colors.black54, fontSize: 16),
+                style: GoogleFonts.poppins(color: Colors.black54, fontSize: 16),
               ),
 
               const SizedBox(height: 50),
@@ -72,7 +73,7 @@ class RoleSelectionView extends StatelessWidget {
               children: [
                 Text(
                   'Welcome, ${role.capitalizeFirst}',
-                  style: const TextStyle(
+                  style: GoogleFonts.poppins(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
@@ -93,15 +94,14 @@ class RoleSelectionView extends StatelessWidget {
                     backgroundColor: color,
                     minimumSize: const Size.fromHeight(50),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Log In',
-                    style: TextStyle(color: Colors.white),
+                    style: GoogleFonts.poppins(color: Colors.white),
                   ),
                 ),
 
                 const SizedBox(height: 16),
 
-                // REGISTER BUTTON
                 OutlinedButton(
                   onPressed: () {
                     Get.back();
@@ -117,7 +117,7 @@ class RoleSelectionView extends StatelessWidget {
                   ),
                   child: Text(
                     'Register (New User)',
-                    style: TextStyle(color: color),
+                    style: GoogleFonts.poppins(color: color),
                   ),
                 ),
               ],
