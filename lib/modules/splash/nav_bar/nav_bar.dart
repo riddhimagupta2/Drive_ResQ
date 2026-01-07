@@ -2,7 +2,7 @@ import 'package:drive_resq/controllers/naav_cont..dart';
 import 'package:drive_resq/modules/driver/driver_dashboard/driver_dashboard.dart';
 import 'package:drive_resq/modules/driver/driver_profile/d_profile.dart';
 import 'package:drive_resq/modules/driver/recharge/d_recharge.dart';
-import 'package:drive_resq/modules/driver/request/d_request.dart';
+import 'package:drive_resq/modules/driver/request/request_his.dart';
 import 'package:drive_resq/modules/mechanic/history/m_history.dart';
 import 'package:drive_resq/modules/mechanic/mechanic_dashboard/m_dashboard.dart';
 import 'package:drive_resq/modules/mechanic/mechanic_profile/m_profile.dart';
@@ -23,7 +23,7 @@ class BottomNavBar extends StatelessWidget {
 
   final driverScreens = [
     DriverDashboard(),
-    DriverRequest(),
+    RequestHistory(),
     DriverRecharge(),
     DriverProfile(),
   ];

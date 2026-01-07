@@ -17,7 +17,6 @@ class RequestController extends GetxController {
   String problemText = '';
   String phoneText = '';
 
-
   Future<void> getCurrentLocation() async {
     try {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -46,18 +45,15 @@ class RequestController extends GetxController {
     }
   }
 
-
   Future<void> pickImage() async {
     if (selectedImages.length >= 3) return;
 
-    final XFile? image =
-    await _picker.pickImage(source: ImageSource.camera);
+    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
 
     if (image != null) {
       selectedImages.add(File(image.path));
     }
   }
-
 
   Future<List<String>> uploadImages() async {
     List<String> imageUrls = [];
@@ -66,12 +62,11 @@ class RequestController extends GetxController {
       final fileName =
           'requests/${_client.auth.currentUser!.id}_${DateTime.now().millisecondsSinceEpoch}.jpg';
 
-      await _client.storage
-          .from('request-images')
-          .upload(fileName, image);
+      await _client.storage.from('request-images').upload(fileName, image);
 
-      final publicUrl =
-      _client.storage.from('request-images').getPublicUrl(fileName);
+      final publicUrl = _client.storage
+          .from('request-images')
+          .getPublicUrl(fileName);
 
       imageUrls.add(publicUrl);
     }
@@ -79,11 +74,8 @@ class RequestController extends GetxController {
     return imageUrls;
   }
 
-
   Future<void> submitRequest() async {
-    if (problemText.isEmpty ||
-        phoneText.isEmpty ||
-        latitude.value == 0) {
+    if (problemText.isEmpty || phoneText.isEmpty || latitude.value == 0) {
       Get.snackbar("Validation", "Fill all required fields");
       return;
     }
@@ -91,9 +83,7 @@ class RequestController extends GetxController {
     try {
       isSubmitting.value = true;
 
-      // 1️⃣ Upload images
       final imageUrls = await uploadImages();
-
 
       await _client.from('requests').insert({
         'driver_id': _client.auth.currentUser!.id,
@@ -101,15 +91,12 @@ class RequestController extends GetxController {
         'vehicle_info': landmarkText,
         'phone': phoneText,
         'status': 'pending',
-        'location': {
-          'lat': latitude.value,
-          'lng': longitude.value,
-        },
+        'location': {'lat': latitude.value, 'lng': longitude.value},
         'images': imageUrls,
       });
 
       Get.snackbar("Success", "Request sent to mechanics");
-      Get.back();
+      Get.back;
     } catch (e) {
       Get.snackbar("Error", e.toString());
     } finally {

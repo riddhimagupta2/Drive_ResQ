@@ -8,7 +8,8 @@ class AppRoutes {
   static const String driverSignup = '/driver-signup';
   static const String driverHome = '/driver-dashboard';
   static const String newRequest = '/driver-new_request';
-  static const String newRecharge = '/driver-new_recharge';
+  static const String driverRequest = '/driver-request';
+  static const String Recharge = '/driver-recharge';
   static const String driverprofile = '/driver-profile';
 
   // Mechanic Routes

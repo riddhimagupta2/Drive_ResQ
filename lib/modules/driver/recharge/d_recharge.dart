@@ -63,10 +63,7 @@ class DriverRecharge extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                onPressed: () {
-                  // NOTE: This will require an internet connection
-                  // This is better placed inside the 'Profile' tab
-                },
+                onPressed: () {},
                 child: Text(
                   "Add Money to Wallet",
                   style: GoogleFonts.poppins(color: Colors.white, fontSize: 16),

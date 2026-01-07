@@ -7,12 +7,14 @@ class AuthController extends GetxController {
 
   final RxBool isLoading = false.obs;
   final RxBool isPasswordHidden = true.obs;
+  RxString userName = ''.obs;
+  RxString userEmail = ''.obs;
+  RxString userRole = ''.obs;
 
   void togglePasswordVisibility() {
     isPasswordHidden.toggle();
   }
 
-  // ================= SIGNUP =================
   Future<void> signup({
     required String name,
     required String email,
@@ -39,7 +41,6 @@ class AuthController extends GetxController {
       }
 
       _navigateByRole(fetchedRole);
-
     } catch (e) {
       Get.snackbar('Signup Failed', e.toString());
     } finally {
@@ -55,10 +56,7 @@ class AuthController extends GetxController {
     try {
       isLoading.value = true;
 
-      await _authService.login(
-        email: email,
-        password: password,
-      );
+      await _authService.login(email: email, password: password);
 
       await _waitForProfile();
 
@@ -73,7 +71,6 @@ class AuthController extends GetxController {
       }
 
       _navigateByRole(role);
-
     } catch (e) {
       Get.snackbar('Login Failed', e.toString());
     } finally {
@@ -96,7 +93,7 @@ class AuthController extends GetxController {
     }
   }
 
-   Future<void> _waitForProfile() async {
+  Future<void> _waitForProfile() async {
     for (int i = 0; i < 5; i++) {
       final role = await _authService.getUserRole();
       if (role != null) return;
@@ -110,12 +107,16 @@ class AuthController extends GetxController {
     } else if (role == 'mechanic') {
       Get.offAll(() => BottomNavBar(userType: 'mechanic'));
     } else {
-      Get.offAllNamed('/login');
+      Get.offAllNamed('/role-selection');
     }
   }
 
   Future<void> logout() async {
     await _authService.logout();
-    Get.offAllNamed('/login');
+    userRole.value = '';
+    userName.value = '';
+    userEmail.value = '';
+
+    Get.offAllNamed('/role-selection');
   }
 }

@@ -1,9 +1,11 @@
 import 'package:drive_resq/modules/driver/driver_dashboard/driver_dashboard.dart';
 import 'package:drive_resq/modules/driver/driver_profile/d_profile.dart';
 import 'package:drive_resq/modules/driver/request/d_request.dart';
+import 'package:drive_resq/modules/driver/request/request_his.dart';
 import 'package:drive_resq/modules/mechanic/history/m_history.dart';
 import 'package:drive_resq/modules/mechanic/mechanic_dashboard/m_dashboard.dart';
 import 'package:drive_resq/modules/mechanic/mechanic_profile/m_profile.dart';
+import 'package:drive_resq/modules/splash/splash.dart';
 import 'package:get/get.dart';
 import '../modules/driver/auth/driver_login_view.dart';
 import '../modules/driver/auth/driver_signup_view.dart';
@@ -15,7 +17,7 @@ import 'app_routes.dart';
 class AppPages {
   static final routes = [
     // Splash Screen
-    //GetPage(name: AppRoutes.splash, page: () => const SplashScreen()),
+    GetPage(name: AppRoutes.splash, page: () => const Splash()),
 
     // Role Selection
     GetPage(name: AppRoutes.selectRole, page: () => RoleSelectionView()),
@@ -27,6 +29,7 @@ class AppPages {
     // Driver Dashboard
     GetPage(name: AppRoutes.driverHome, page: () => DriverDashboard()),
     GetPage(name: AppRoutes.newRequest, page: () => DriverRequest()),
+    GetPage(name: AppRoutes.driverRequest, page: () => RequestHistory()),
     GetPage(name: AppRoutes.driverprofile, page: () => DriverProfile()),
 
     // Mechanic Auth
