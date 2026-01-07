@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:drive_resq/models/request_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../controllers/driver_cont..dart';
 
 class DriverRequestCard extends StatelessWidget {
@@ -22,8 +23,9 @@ class DriverRequestCard extends StatelessWidget {
     final landmark = request.location?.landmark ?? '';
     Uint8List? imageBytes;
 
-    final String? firstImage =
-    request.images.isNotEmpty ? request.images.first : null;
+    final String? firstImage = request.images.isNotEmpty
+        ? request.images.first
+        : null;
 
     if (firstImage != null &&
         !firstImage.startsWith("http") &&
@@ -44,42 +46,42 @@ class DriverRequestCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "Active Rescue Request",
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF00695C),
               ),
             ),
             const SizedBox(height: 10),
-            Text("📍 Location: $lat, $lng"),
-            if (landmark.isNotEmpty) Text("📌 Landmark: $landmark"),
+            Text("Location: $lat, $lng"),
+            if (landmark.isNotEmpty) Text("Landmark: $landmark"),
             if (request.description?.isNotEmpty ?? false)
-              Text("📝 Problem: ${request.description}"),
+              Text("Problem: ${request.description}"),
             if (request.vehicleInfo?.isNotEmpty ?? false)
-              Text("🚗 Vehicle: ${request.vehicleInfo}"),
+              Text("Vehicle: ${request.vehicleInfo}"),
             if (request.phone?.isNotEmpty ?? false)
-              Text("📞 Phone: ${request.phone}"),
+              Text(" Phone: ${request.phone}"),
             const SizedBox(height: 10),
             if (firstImage != null)
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: imageBytes != null
                     ? Image.memory(
-                  imageBytes,
-                  width: double.infinity,
-                  height: 180,
-                  fit: BoxFit.cover,
-                )
+                        imageBytes,
+                        width: double.infinity,
+                        height: 180,
+                        fit: BoxFit.cover,
+                      )
                     : Image.network(
-                  firstImage,
-                  width: double.infinity,
-                  height: 180,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
-                  const Text("Invalid image data"),
-                ),
+                        firstImage,
+                        width: double.infinity,
+                        height: 180,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Text("Invalid image data"),
+                      ),
               ),
             const SizedBox(height: 12),
             Row(
@@ -91,10 +93,14 @@ class DriverRequestCard extends StatelessWidget {
                         .markCompleted(request.id!);
                     Get.snackbar("Completed", "Request marked as completed");
                   },
-                  icon: const Icon(Icons.check_circle_outline,
-                      color: Colors.green),
-                  label: const Text("Complete",
-                      style: TextStyle(color: Colors.green)),
+                  icon: const Icon(
+                    Icons.check_circle_outline,
+                    color: Colors.green,
+                  ),
+                  label: Text(
+                    "Complete",
+                    style: GoogleFonts.poppins(color: Colors.green),
+                  ),
                 ),
                 TextButton.icon(
                   onPressed: () async {
@@ -102,10 +108,14 @@ class DriverRequestCard extends StatelessWidget {
                         .deleteRequest(request.id!);
                     Get.snackbar("Deleted", "Request removed successfully");
                   },
-                  icon:
-                  const Icon(Icons.delete_outline, color: Colors.redAccent),
-                  label: const Text("Delete",
-                      style: TextStyle(color: Colors.redAccent)),
+                  icon: const Icon(
+                    Icons.delete_outline,
+                    color: Colors.redAccent,
+                  ),
+                  label: Text(
+                    "Delete",
+                    style: GoogleFonts.poppins(color: Colors.redAccent),
+                  ),
                 ),
               ],
             ),
