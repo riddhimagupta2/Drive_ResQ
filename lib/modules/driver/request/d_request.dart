@@ -13,6 +13,12 @@ class DriverRequest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (controller.latitude.value == 0.0) {
+        controller.getCurrentLocation();
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -53,10 +59,12 @@ class DriverRequest extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        controller.latitude.value == 0
-                            ? "No location detected"
-                            : "Lat: ${controller.latitude.value.toStringAsFixed(5)}, "
+                        controller.latitude.value == 0.0
+                            ? "Fetching current location..."
+                            : "📍${controller.driverAddress.value}\n"
+                                  "Lat: ${controller.latitude.value.toStringAsFixed(5)}, "
                                   "Lng: ${controller.longitude.value.toStringAsFixed(5)}",
+                        style: GoogleFonts.poppins(fontSize: 14),
                       ),
                     ),
                     TextButton(
