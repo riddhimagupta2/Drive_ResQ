@@ -2,13 +2,13 @@ import 'package:drive_resq/controllers/ai_cont..dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class DriverAiScreen extends StatelessWidget {
   const DriverAiScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(DriverAiController());
+    final controller = Get.put(
+        DriverAiController());
 
     return Scaffold(
       appBar: AppBar(title: const Text("AI Vehicle Assistant")),
@@ -24,7 +24,10 @@ class DriverAiScreen extends StatelessWidget {
                 onPressed: controller.pickImage,
                 child: const Text("Upload Vehicle Image"),
               )
-                  : Image.file(controller.image.value!, height: 180)),
+                  : Image.file(
+                controller.image.value!,
+                height: 180,
+              )),
 
               const SizedBox(height: 12),
 

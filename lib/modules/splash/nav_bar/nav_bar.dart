@@ -1,4 +1,5 @@
 import 'package:drive_resq/controllers/naav_cont..dart';
+import 'package:drive_resq/modules/driver/ai_assistant/ai_screen.dart';
 import 'package:drive_resq/modules/driver/driver_dashboard/driver_dashboard.dart';
 import 'package:drive_resq/modules/driver/driver_profile/d_profile.dart';
 import 'package:drive_resq/modules/driver/recharge/d_recharge.dart';
@@ -24,7 +25,7 @@ class BottomNavBar extends StatelessWidget {
   final driverScreens = [
     DriverDashboard(),
     RequestHistory(),
-    DriverRecharge(),
+    DriverAiScreen(),
     DriverProfile(),
   ];
 
