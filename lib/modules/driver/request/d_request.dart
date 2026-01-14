@@ -61,9 +61,7 @@ class DriverRequest extends StatelessWidget {
                       child: Text(
                         controller.latitude.value == 0.0
                             ? "Fetching current location..."
-                            : "📍${controller.driverAddress.value}\n"
-                                  "Lat: ${controller.latitude.value.toStringAsFixed(5)}, "
-                                  "Lng: ${controller.longitude.value.toStringAsFixed(5)}",
+                            : "${controller.driverAddress.value}\n",
                         style: GoogleFonts.poppins(fontSize: 14),
                       ),
                     ),
