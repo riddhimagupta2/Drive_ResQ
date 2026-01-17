@@ -5,16 +5,21 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/material.dart';
 
 class DriverAiController extends GetxController {
-  final picker = ImagePicker();
-  final supabase = Supabase.instance.client;
+  final ImagePicker picker = ImagePicker();
+  final SupabaseClient supabase = Supabase.instance.client;
 
   var image = Rx<File?>(null);
   var aiResult = "".obs;
+  var isLoading = false.obs;
 
   final problemController = TextEditingController();
 
   Future<void> pickImage() async {
-    final picked = await picker.pickImage(source: ImageSource.camera);
+    final picked = await picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 70,
+    );
+
     if (picked != null) {
       image.value = File(picked.path);
     }
@@ -22,7 +27,7 @@ class DriverAiController extends GetxController {
 
   Future<void> askAi() async {
     if (image.value == null) {
-      Get.snackbar("Error", "Please upload an image");
+      Get.snackbar("Error", "Please upload a vehicle image");
       return;
     }
 
@@ -31,44 +36,53 @@ class DriverAiController extends GetxController {
       return;
     }
 
-    aiResult.value = "Analyzing problem...";
-
     try {
+      isLoading.value = true;
+      aiResult.value = "";
+
       final imageUrl = await uploadImage();
 
       final response = await supabase.functions.invoke(
         'ai-assistant',
-        body: {'imageUrl': imageUrl, 'problem': problemController.text},
+        body: {
+          'imageUrl': imageUrl,
+          'problem': problemController.text.trim(),
+        },
       );
 
-      if (response.error != null) {
-        throw response.error!;
-      }
-
       final data = response.data as Map<String, dynamic>;
-      final fixes = List<String>.from(data['quick_fixes']);
 
       aiResult.value =
-          "Issue: ${data['issue']}\n\n"
-          "Explanation: ${data['explanation']}\n\n"
-          "Quick Fixes:\n- ${fixes.join('\n- ')}";
+      "🛠 Issue:\n${data['issue']}\n\n"
+          "📋 Explanation:\n${data['explanation']}\n\n"
+          "📞 Call Mechanic: ${data['call_mechanic'] ? 'Yes' : 'No'}";
+
     } catch (e) {
-      aiResult.value = "Something went wrong. Try again.";
       debugPrint(e.toString());
+      Get.snackbar("Error", "AI analysis failed");
+    } finally {
+      isLoading.value = false;
     }
   }
 
   Future<String> uploadImage() async {
     final fileName = 'issues/${DateTime.now().millisecondsSinceEpoch}.jpg';
 
-    await supabase.storage
-        .from('ai-images')
-        .upload(
-          fileName,
-          image.value!,
-          fileOptions: const FileOptions(contentType: 'image/jpeg'),
-        );
+    await supabase.storage.from('ai-images').upload(
+      fileName,
+      image.value!,
+      fileOptions: const FileOptions(
+        contentType: 'image/jpeg',
+        upsert: false,
+      ),
+    );
 
     return supabase.storage.from('ai-images').getPublicUrl(fileName);
+  }
+
+  @override
+  void onClose() {
+    problemController.dispose();
+    super.onClose();
   }
 }
