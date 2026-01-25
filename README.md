@@ -1,16 +1,47 @@
-# drive_resq
+# DriveResQ Tech 🚗🛠️
 
-A new Flutter project.
+DriveResQ Tech is a Flutter-based service request platform that connects **drivers** with **mechanics** for quick and reliable vehicle assistance.  
+The app leverages **Supabase** for backend services and **Google Gemini AI** for intelligent request processing and insights.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🚀 Features
 
-A few resources to get you started if this is your first Flutter project:
+### 👤 Driver Module
+- Submit vehicle service or emergency requests
+- Describe issues in simple language
+- Track request status in real-time
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 🔧 Mechanic Module
+- View incoming service requests
+- Accept or reject requests
+- Manage assigned jobs efficiently
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 🤖 AI-Powered (Google Gemini)
+- Refines user-entered problem descriptions
+- Generates structured issue summaries for mechanics
+- Improves clarity and reduces miscommunication
+
+### ☁️ Backend (Supabase)
+- Authentication (Email / OAuth)
+- Real-time database
+- Secure data storage
+- Role-based access (Driver / Mechanic)
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer        | Technology |
+|--------------|------------|
+| Frontend     | Flutter |
+| State Mgmt   | GetX |
+| Backend      | Supabase |
+| Database     | PostgreSQL (Supabase) |
+| AI           | Google Gemini API |
+| Auth         | Supabase Auth |
+
+---
+
+## 📁 Project Structure
+
