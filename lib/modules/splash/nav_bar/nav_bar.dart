@@ -72,8 +72,8 @@ class BottomNavBar extends StatelessWidget {
                     label: 'Request',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.account_balance_wallet),
-                    label: 'Recharge',
+                    icon: Icon(Icons.message),
+                    label: 'Chat',
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.person),
